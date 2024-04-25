@@ -24,9 +24,9 @@ export class PgModelRepository implements ModelRepository {
     return result.rows;
   }
 
-  async create(createUserDto: CreateModelDto): Promise<Model> {
+  async create(createModelDto: CreateModelDto): Promise<Model> {
     const { model_id, name, description, context_length, tokenizer, modality } =
-      createUserDto;
+      createModelDto;
 
     const result = (await this.pool.query(
       `INSERT INTO models
