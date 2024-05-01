@@ -19,7 +19,7 @@ export class PgModelRepository implements ModelRepository {
 
   async findAll(): Promise<Model[]> {
     const result = (await this.pool.query(
-      `SELECT * FROM models`,
+      `SELECT * FROM public.models`,
     )) as QueryResult<Model>;
     return result.rows;
   }
@@ -27,11 +27,10 @@ export class PgModelRepository implements ModelRepository {
   async create(createModelDto: CreateModelDto): Promise<Model> {
     const { model_id, name, description, context_length, tokenizer, modality } =
       createModelDto;
-
     const result = (await this.pool.query(
-      `INSERT INTO models
-                            (model_id, description, context_length, tokenizer, modality)
-                        VALUES ($1, $2) RETURNING *`,
+      `INSERT INTO public.models
+                            (model_id, name, description, context_length, tokenizer, modality)
+                        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
       [model_id, name, description, context_length, tokenizer, modality],
     )) as QueryResult<Model>;
     return result.rows[0];
@@ -52,7 +51,7 @@ export class PgModelRepository implements ModelRepository {
 
   async delete(id: number): Promise<boolean> {
     const result = (await this.pool.query(
-      `DELETE FROM models WHERE id = $1 RETURNING id`,
+      `DELETE FROM models WHERE id = $1 RETURNING model_id`,
       [id],
     )) as QueryResult<Pick<Model, 'model_id'>>;
     return Boolean(result.rowCount);
