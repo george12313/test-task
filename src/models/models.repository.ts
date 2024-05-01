@@ -52,9 +52,9 @@ export class PgModelRepository implements ModelRepository {
 
   async delete(id: number): Promise<boolean> {
     const result = (await this.pool.query(
-      `DELETE FROM models WHERE id = $1 RETURNING model_id`,
+      `DELETE FROM models WHERE id = $1 RETURNING id`,
       [id],
-    )) as QueryResult<Pick<Model, 'model_id'>>;
+    )) as QueryResult<{ id: number }>;
     return Boolean(result.rowCount);
   }
 
