@@ -56,4 +56,24 @@ export class PgModelRepository implements ModelRepository {
     )) as QueryResult<Pick<Model, 'model_id'>>;
     return Boolean(result.rowCount);
   }
+
+  async saveModelDataArray(data: CreateModelDto[]): Promise<void> {
+    const query = `
+      INSERT INTO public.models (name, description, context_length, tokenizer, modality)
+      VALUES ($1, $2, $3, $4, $5)`;
+
+    const promises = data.map((item: any) => {
+      const params = [
+        item.name,
+        item.description,
+        item.context_length,
+        item.architecture.tokenizer,
+        item.architecture.modality,
+      ];
+
+      return this.pool.query(query, params); // Выполняем SQL-запрос для каждого объекта
+    });
+
+    await Promise.all(promises); // Выполняем все запросы параллельно
+  }
 }

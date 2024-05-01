@@ -5,10 +5,6 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class UpdateModelDto extends PartialType(CreateModelDto) {
   @IsNotEmpty()
   @IsString()
-  model_id: string;
-
-  @IsNotEmpty()
-  @IsString()
   name: string;
 
   @IsNotEmpty()
