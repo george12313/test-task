@@ -19,15 +19,17 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate:create": "node-pg-migrate create --migrations-directory migrate-migration.json",
-    "migrate:up":  "DATABASE_URL=postgres://postgres:3045@127.0.0.1:5432/web node-pg-migrate up",
+    "migrate:up": "DATABASE_URL=postgres://postgres:3045@127.0.0.1:5432/web node-pg-migrate up",
     "migrate:down": "DATABASE_URL=postgres://postgres:3045@127.0.0.1:5432/web node-pg-migrate down --migrations-directory ./src"
   },
   "dependencies": {
+    "@nestjs/axios": "^3.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.0.2",
+    "axios": "^1.6.8",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "node-pg-migrate": "^7.2.1",

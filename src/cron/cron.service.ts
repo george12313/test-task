@@ -1,15 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { ModelsService } from '../models/models.service';
+import { ModelsHttpService } from '../models/models-http.service';
 
 @Injectable()
 export class TasksService {
   private readonly logger = new Logger(TasksService.name);
-  constructor(private readonly modelService: ModelsService) {}
+  constructor(private readonly modelService: ModelsHttpService) {}
 
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_5_SECONDS)
   handleCron() {
-    this.modelService.findAll();
-    this.logger.debug('Called when the current second is 45');
+    this.modelService.getAndSaveHttpModels();
   }
 }
