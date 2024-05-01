@@ -23,7 +23,7 @@ export class ModelsHttpService {
         await this.modelRepository.saveModelDataArray(data.data);
       },
       error: (error) => {
-        console.error('Ошибка:', error); // Обработка ошибки
+        console.error('Ошибка:', error);
       },
     });
   }
