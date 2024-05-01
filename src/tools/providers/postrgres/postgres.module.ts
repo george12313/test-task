@@ -9,9 +9,9 @@ import { PostrgresService } from './postrgres.service';
       provide: 'PG_CONNECTION',
       useValue: new Pool({
         user: 'postgres',
-        host: '127.0.0.1',
-        database: 'web',
-        password: '3045',
+        host: 'db',
+        database: 'postgres',
+        password: 'postgres',
         port: 5432,
       }),
     },

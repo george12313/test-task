@@ -40,7 +40,8 @@ export class PgModelRepository implements ModelRepository {
     id: number,
     updateModelDto: UpdateModelDto,
   ): Promise<Model | null> {
-    const { name, description, context_length, tokenizer, modality } = updateModelDto;
+    const { name, description, context_length, tokenizer, modality } =
+      updateModelDto;
     const result = (await this.pool.query(
       `UPDATE models SET name = $2,  description = $3, context_length = $4, tokenizer = $5, modality = $6
                        WHERE id = $1 RETURNING *`,

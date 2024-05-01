@@ -9,8 +9,9 @@ export enum ERequestUrl {
 
 @Injectable()
 export class ModelsHttpService {
-  constructor(private readonly httpService: HttpService,
-              private readonly modelRepository: PgModelRepository
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly modelRepository: PgModelRepository,
   ) {}
   getAndSaveHttpModels(): void {
     const res = this.httpService
@@ -19,7 +20,7 @@ export class ModelsHttpService {
 
     res.subscribe({
       next: async (data) => {
-       await this.modelRepository.saveModelDataArray(data.data);
+        await this.modelRepository.saveModelDataArray(data.data);
       },
       error: (error) => {
         console.error('Ошибка:', error); // Обработка ошибки
