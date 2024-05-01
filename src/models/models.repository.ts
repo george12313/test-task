@@ -25,13 +25,13 @@ export class PgModelRepository implements ModelRepository {
   }
 
   async create(createModelDto: CreateModelDto): Promise<Model> {
-    const { model_id, name, description, context_length, tokenizer, modality } =
+    const { name, description, context_length, tokenizer, modality } =
       createModelDto;
     const result = (await this.pool.query(
       `INSERT INTO public.models
-                            (model_id, name, description, context_length, tokenizer, modality)
-                        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [model_id, name, description, context_length, tokenizer, modality],
+                            (name, description, context_length, tokenizer, modality)
+                        VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      [name, description, context_length, tokenizer, modality],
     )) as QueryResult<Model>;
     return result.rows[0];
   }
@@ -40,11 +40,11 @@ export class PgModelRepository implements ModelRepository {
     id: number,
     updateModelDto: UpdateModelDto,
   ): Promise<Model | null> {
-    const { model_id, description, context_length, tokenizer, modality } =
-      updateModelDto;
+    const { name, description, context_length, tokenizer, modality } = updateModelDto;
     const result = (await this.pool.query(
-      'UPDATE models SET model_id = $2, description = $3, context_length = $4, tokenizer = $5, modality = $6  WHERE id = $1 RETURNING *',
-      [id, model_id, description, context_length, tokenizer, modality],
+      `UPDATE models SET name = $2,  description = $3, context_length = $4, tokenizer = $5, modality = $6
+                       WHERE id = $1 RETURNING *`,
+      [id, name, description, context_length, tokenizer, modality],
     )) as QueryResult<Model>;
     return result.rows[0] || null;
   }
