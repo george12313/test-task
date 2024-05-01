@@ -8,4 +8,5 @@ export interface ModelRepository {
   create(user: CreateModelDto): Promise<Model>;
   update(id: number, updateModelDto: UpdateModelDto): Promise<Model | null>;
   delete(id: number): Promise<boolean>;
+  saveModelDataArray(data: CreateModelDto[]): Promise<void>;
 }
