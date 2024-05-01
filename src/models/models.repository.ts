@@ -72,9 +72,9 @@ export class PgModelRepository implements ModelRepository {
         item.architecture.modality,
       ];
 
-      return this.pool.query(query, params); // Выполняем SQL-запрос для каждого объекта
+      return this.pool.query(query, params);
     });
 
-    await Promise.all(promises); // Выполняем все запросы параллельно
+    await Promise.all(promises);
   }
 }
