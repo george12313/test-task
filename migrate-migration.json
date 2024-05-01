@@ -1,0 +1,9 @@
+{
+  "migrationDirectory": "./src/tools/providers/postgres/migrations",
+  "driver": "pg",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "database": "web",
+  "user": "postgres",
+  "password": "3045"
+}

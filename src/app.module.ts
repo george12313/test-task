@@ -5,5 +5,6 @@ import { PostgresModule } from './tools/providers/postrgres/postgres.module';
 
 @Module({
   imports: [ScheduleModule.forRoot(), PostgresModule, ModelsModule],
+  providers: [],
 })
 export class AppModule {}
